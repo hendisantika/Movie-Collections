@@ -85,4 +85,9 @@ public class AppServiceImpl implements AppService {
     public List<Movie> findMoviesByActor(String actor) {
         return movieRepository.findByActor(actor);
     }
+
+    @Override
+    public List<Actor> findActors() {
+        return actorRepository.findActors();
+    }
 }
