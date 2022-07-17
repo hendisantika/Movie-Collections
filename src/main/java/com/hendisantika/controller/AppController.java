@@ -78,4 +78,22 @@ public class AppController {
         model.addAttribute("stars", textForm.getText());
         return "newMovie";
     }
+
+    @PostMapping("/movies/confirm")
+    public String confirmCreation(@ModelAttribute MovieFormWrapper mfw, Model model) {
+        Movie movie = new Movie();
+        movie.setName(mfw.getName());
+        movie.setDate(mfw.getDate());
+        movie.setCategory(mfw.getCategory());
+        movie.setDescription(mfw.getDescription());
+        movie.setImage(mfw.getImage());
+        movie.setRating(mfw.getRating());
+        List<Actor> cast = new ArrayList<>();
+        for (String elem : mfw.getCastRef().split(",")) {
+            cast.add(appService.findActor(Long.parseLong(elem)));
+        }
+        movie.getCast().addAll(cast);
+        appService.createMovie(movie);
+        return "redirect:/movies/list";
+    }
 }
