@@ -40,4 +40,10 @@ public class MovieRepoJPA implements MovieRepository {
                 .setParameter("name", "%" + name.toUpperCase() + "%")
                 .getResultList();
     }
+
+    @Override
+    public void create(Movie movie) {
+        entityManager.persist(movie);
+    }
+
 }
