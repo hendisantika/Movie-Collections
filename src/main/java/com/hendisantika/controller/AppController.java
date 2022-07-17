@@ -152,4 +152,15 @@ public class AppController {
         return mav;
     }
 
+    @GetMapping(value = "/movies/{id}")
+    public ModelAndView getMovieInfo(@PathVariable("id") Long id) {
+        ModelAndView mav = new ModelAndView();
+        Movie movie = appService.findMovie(id);
+        List<Actor> actors = new ArrayList<Actor>(movie.getCast());
+        mav.addObject("movie", movie);
+        mav.addObject("cast", actors);
+        mav.setViewName("info");
+        return mav;
+    }
+
 }
