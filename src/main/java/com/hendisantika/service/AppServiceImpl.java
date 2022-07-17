@@ -95,4 +95,10 @@ public class AppServiceImpl implements AppService {
     public Actor findActor(Long id) {
         return actorRepository.findActorById(id);
     }
+
+    @Override
+    public List<Actor> findActorsByMovie(Movie movie) {
+        return actorRepository.findActorsByMovie(movie);
+    }
+
 }
