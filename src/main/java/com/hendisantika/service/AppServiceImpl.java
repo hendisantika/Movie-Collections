@@ -90,4 +90,9 @@ public class AppServiceImpl implements AppService {
     public List<Actor> findActors() {
         return actorRepository.findActors();
     }
+
+    @Override
+    public Actor findActor(Long id) {
+        return actorRepository.findActorById(id);
+    }
 }
