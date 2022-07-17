@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -114,4 +116,40 @@ public class AppController {
         appService.createActor(actor);
         return "redirect:/movies/cast";
     }
+
+    @GetMapping("/movies/list")
+    public ModelAndView getMovies(
+            @RequestParam(name = "orderBy", required = false) String orderBy,
+            @RequestParam(name = "name", required = false) String name,
+            @RequestParam(name = "category", required = false) String category,
+            @RequestParam(name = "actor", required = false) String actor) {
+
+        ModelAndView mav = new ModelAndView();
+
+        List<Movie> moviesList = appService.findMovies();
+
+        if (name != null) {
+            moviesList = appService.findMoviesByName(name);
+        } else if (category != null) {
+            moviesList = appService.findMoviesByCategory(category);
+        } else if (actor != null) {
+            moviesList = appService.findMoviesByActor(actor);
+        } else {
+            moviesList = appService.findMovies();
+        }
+
+        if (orderBy != null) {
+            if (orderBy.equals("rating")) {
+                moviesList.sort(Comparator.comparing(Movie::getRating).reversed());
+            } else if (orderBy.equals("name")) {
+                moviesList.sort(Comparator.comparing(Movie::getName));
+            } else if (orderBy.equals("date")) {
+                moviesList.sort(Comparator.comparing(Movie::getDate).reversed());
+            }
+        }
+        mav.addObject("movies", moviesList);
+        mav.setViewName("index");
+        return mav;
+    }
+
 }
