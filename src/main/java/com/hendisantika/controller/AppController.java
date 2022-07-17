@@ -64,4 +64,10 @@ public class AppController {
         appService.update(movie);
         return "redirect:/movies/list";
     }
+
+    @GetMapping(value = "/movies/delete/{id}")
+    public String deleteMovie(@PathVariable("id") Long id) {
+        appService.deleteMovie(id);
+        return "redirect:/movies/list";
+    }
 }
