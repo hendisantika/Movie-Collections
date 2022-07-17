@@ -1,6 +1,7 @@
 package com.hendisantika.service;
 
 import com.hendisantika.exception.MovieNotFoundException;
+import com.hendisantika.model.Actor;
 import com.hendisantika.model.Movie;
 import com.hendisantika.repository.ActorRepository;
 import com.hendisantika.repository.MovieRepository;
@@ -50,4 +51,8 @@ public class AppServiceImpl implements AppService {
         movieRepository.create(movie);
     }
 
+    @Override
+    public void createActor(Actor actor) {
+        actorRepository.create(actor);
+    }
 }
