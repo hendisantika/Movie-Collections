@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -34,5 +35,10 @@ public interface ActorRepoJPA implements ActorRepository {
     @Override
     void delete(Long actor_id) {
         entityManager.remove(entityManager.getReference(Actor.class, actor_id));
+    }
+
+    @Override
+    List<Actor> findActors() {
+        return entityManager.createQuery("from Actor", Actor.class).getResultList();
     }
 }
