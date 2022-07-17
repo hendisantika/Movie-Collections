@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by IntelliJ IDEA.
@@ -61,4 +62,11 @@ public class MovieRepoJPA implements MovieRepository {
         return entityManager.createQuery("from Movie WHERE upper(category) = :category", Movie.class)
                 .setParameter("category", category.toUpperCase()).getResultList();
     }
+
+    @Override
+    public List<Movie> findByActor(String actor) {
+        List<Movie> movies = entityManager.createQuery("from Movie", Movie.class).getResultList();
+        return movies.stream().filter(m -> m.getCast().stream().anyMatch(a -> a.getActorName().toUpperCase().contains(actor.toUpperCase()))).collect(Collectors.toList());
+    }
+
 }
