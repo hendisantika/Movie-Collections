@@ -1,5 +1,6 @@
 package com.hendisantika.service;
 
+import com.hendisantika.exception.MovieNotFoundException;
 import com.hendisantika.model.Movie;
 import com.hendisantika.repository.ActorRepository;
 import com.hendisantika.repository.MovieRepository;
@@ -35,5 +36,12 @@ public class AppServiceImpl implements AppService {
     @Override
     public List<Movie> findMoviesByName(String name) {
         return movieRepository.findByName(name);
+    }
+
+    @Override
+    public Movie findMovie(Long id) throws MovieNotFoundException {
+        Movie movie = movieRepository.findById(id);
+        if (movie == null) throw new MovieNotFoundException("Owner not found with id: " + id);
+        return movie;
     }
 }
