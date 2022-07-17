@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,5 +96,16 @@ public class AppController {
         movie.getCast().addAll(cast);
         appService.createMovie(movie);
         return "redirect:/movies/list";
+    }
+
+    @GetMapping("/movies/cast")
+    public ModelAndView castControl() {
+        ModelAndView mav = new ModelAndView();
+        List<Actor> actors = appService.findActors();
+        mav.addObject("actors", actors);
+        mav.addObject("actor", new Actor());
+        mav.addObject("textForm", new TextForm());
+        mav.setViewName("castEdit");
+        return mav;
     }
 }
