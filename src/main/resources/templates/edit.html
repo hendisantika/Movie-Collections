@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/movies.css}" type="text/css"/>
+    <meta charset="UTF-8">
+    <title>Updating the movie</title>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center text-light bg-dark mb-3 pt-3 pb-3 font-weight-bold"
+        style="border-radius: 0px 0px 30px 30px;">MOVIE COLLECTION</h1>
+    <div class="text-center container w-50 bg-light p-4">
+        <h2 class="text-center">UPDATING THE MOVIE</h2>
+        <span class="h3" th:text="${movie.name}"></span>
+
+        <div class="form-group text-center container">
+            <form action="#" method="POST" th:action="@{/movies/edit/cast/{movie.id}(movie.id = ${movie.id})}"
+                  th:object="${movie}">
+                Id: <input class="form-control" name="id" readonly th:field="*{id}" type="text"/></br>
+                Name: <input class="form-control" name="name" th:field="*{name}" type="text"/></br>
+                Release Date: <input class="form-control" name="date" th:field="*{date}" type="date"/></br>
+                Category: <input class="form-control" name="category" th:field="*{category}" type="text"/></br>
+                Description: <input class="form-control" name="description" th:field="*{description}" type="text"/></br>
+                Image URL: <input class="form-control" name="image" th:field="*{image}" type="text"/><br>
+                Rating: <input class="form-control" name="rating" th:field="*{rating}" type="text"/></br>
+                <button class="btn btn-dark" name="submit" type="submit" value="0">Confirm And Go To Editing Cast
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script crossorigin="anonymous" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi"
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+<script crossorigin="anonymous" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
