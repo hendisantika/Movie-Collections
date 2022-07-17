@@ -55,4 +55,10 @@ public class AppServiceImpl implements AppService {
     public void createActor(Actor actor) {
         actorRepository.create(actor);
     }
+
+    @Override
+    public void update(Movie movie) {
+        movieRepository.update(movie);
+    }
+
 }
