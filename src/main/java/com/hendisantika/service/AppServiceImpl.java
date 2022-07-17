@@ -44,4 +44,10 @@ public class AppServiceImpl implements AppService {
         if (movie == null) throw new MovieNotFoundException("Owner not found with id: " + id);
         return movie;
     }
+
+    @Override
+    public void createMovie(Movie movie) {
+        movieRepository.create(movie);
+    }
+
 }
