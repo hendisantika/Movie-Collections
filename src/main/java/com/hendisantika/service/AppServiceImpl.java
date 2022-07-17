@@ -27,8 +27,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AppServiceImpl implements AppService {
 
-    private MovieRepository movieRepository;
-    private ActorRepository actorRepository;
+    private final MovieRepository movieRepository;
+    private final ActorRepository actorRepository;
 
     @Override
     public List<Movie> findMovies() {
