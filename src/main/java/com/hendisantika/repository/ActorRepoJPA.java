@@ -41,4 +41,9 @@ public interface ActorRepoJPA implements ActorRepository {
     List<Actor> findActors() {
         return entityManager.createQuery("from Actor", Actor.class).getResultList();
     }
+
+    @Override
+    Actor findActorById(Long id) {
+        return entityManager.find(Actor.class, id);
+    }
 }
