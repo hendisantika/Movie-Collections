@@ -46,4 +46,9 @@ public class MovieRepoJPA implements MovieRepository {
         entityManager.persist(movie);
     }
 
+    @Override
+    public Movie update(Movie movie) {
+        return entityManager.merge(movie);
+    }
+
 }
