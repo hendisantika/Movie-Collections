@@ -3,6 +3,7 @@ package com.hendisantika.controller;
 import com.hendisantika.model.Actor;
 import com.hendisantika.model.Movie;
 import com.hendisantika.service.AppService;
+import com.hendisantika.util.MovieFormWrapper;
 import com.hendisantika.util.TextForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -69,5 +70,12 @@ public class AppController {
     public String deleteMovie(@PathVariable("id") Long id) {
         appService.deleteMovie(id);
         return "redirect:/movies/list";
+    }
+
+    @PostMapping("/movies/new")
+    public String creatingMovie(@ModelAttribute TextForm textForm, Model model) {
+        model.addAttribute("movieWrapper", new MovieFormWrapper(textForm.getText()));
+        model.addAttribute("stars", textForm.getText());
+        return "newMovie";
     }
 }
