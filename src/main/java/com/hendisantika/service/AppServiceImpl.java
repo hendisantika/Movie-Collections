@@ -75,4 +75,9 @@ public class AppServiceImpl implements AppService {
     public void deleteActor(Long actorId) {
         actorRepository.delete(actorId);
     }
+
+    @Override
+    public List<Movie> findMoviesByCategory(String category) {
+        return movieRepository.findByCategory(category);
+    }
 }
