@@ -51,4 +51,8 @@ public class MovieRepoJPA implements MovieRepository {
         return entityManager.merge(movie);
     }
 
+    @Override
+    public void delete(Long id) {
+        entityManager.remove(entityManager.getReference(Movie.class, id));
+    }
 }
