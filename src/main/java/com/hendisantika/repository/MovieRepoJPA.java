@@ -1,9 +1,11 @@
 package com.hendisantika.repository;
 
+import com.hendisantika.model.Movie;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,4 +22,9 @@ public class MovieRepoJPA implements MovieRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Override
+    public List<Movie> findAll() {
+        return entityManager.createQuery("from Movie", Movie.class).getResultList();
+    }
 }
