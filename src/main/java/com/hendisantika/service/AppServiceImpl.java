@@ -3,6 +3,7 @@ package com.hendisantika.service;
 import com.hendisantika.exception.MovieNotFoundException;
 import com.hendisantika.model.Actor;
 import com.hendisantika.model.Movie;
+import com.hendisantika.model.User;
 import com.hendisantika.repository.ActorRepository;
 import com.hendisantika.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
@@ -101,4 +102,8 @@ public class AppServiceImpl implements AppService {
         return actorRepository.findActorsByMovie(movie);
     }
 
+    @Override
+    public void registerUser(User user) {
+        actorRepository.registerUser(user);
+    }
 }
