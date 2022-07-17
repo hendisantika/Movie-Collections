@@ -1,12 +1,16 @@
 package com.hendisantika.controller;
 
+import com.hendisantika.model.Actor;
 import com.hendisantika.model.Movie;
 import com.hendisantika.service.AppService;
+import com.hendisantika.util.TextForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * Created by IntelliJ IDEA.
@@ -34,5 +38,15 @@ public class AppController {
         Movie movie = appService.findMovie(id);
         model.addAttribute("movie", movie);
         return "edit";
+    }
+
+    @PostMapping("/movies//edit/cast/{id}")
+    public String movieUpdating(@PathVariable("id") Long id, @ModelAttribute Movie movie, Model model) {
+        appService.update(movie);
+        model.addAttribute("movie_id", movie.getId());
+        model.addAttribute("actor", new Actor());
+        model.addAttribute("actors", appService.findActors());
+        model.addAttribute("textForm", new TextForm());
+        return "updateCast";
     }
 }
