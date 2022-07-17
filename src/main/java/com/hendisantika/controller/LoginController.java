@@ -1,8 +1,10 @@
 package com.hendisantika.controller;
 
+import com.hendisantika.model.User;
 import com.hendisantika.service.AppService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
@@ -24,5 +26,11 @@ public class LoginController {
     @GetMapping("/login")
     public String login() {
         return "login";
+    }
+
+    @GetMapping("/register")
+    public String register(Model model) {
+        model.addAttribute("user", new User());
+        return "register";
     }
 }
