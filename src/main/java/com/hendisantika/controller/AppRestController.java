@@ -1,9 +1,14 @@
 package com.hendisantika.controller;
 
+import com.hendisantika.model.Movie;
 import com.hendisantika.service.AppService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,4 +26,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class AppRestController {
 
     private final AppService appService;
+
+    @GetMapping(value = "/movies")
+    public ResponseEntity<List<Movie>> getMovies() {
+        List<Movie> movies = appService.findMovies();
+        return ResponseEntity.ok(movies);
+    }
 }
