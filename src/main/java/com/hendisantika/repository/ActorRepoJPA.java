@@ -1,6 +1,7 @@
 package com.hendisantika.repository;
 
 import com.hendisantika.model.Actor;
+import com.hendisantika.model.Movie;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -45,5 +46,11 @@ public interface ActorRepoJPA implements ActorRepository {
     @Override
     Actor findActorById(Long id) {
         return entityManager.find(Actor.class, id);
+    }
+
+    @Override
+    List<Actor> findActorsByMovie(Movie movie) {
+        String q = "SELECT * FROM Movie_Actors WHERE movie_id = " + movie.getId();
+        return entityManager.createNativeQuery(q).getResultList();
     }
 }
