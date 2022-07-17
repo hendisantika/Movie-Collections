@@ -24,7 +24,7 @@
         <div class="table-responsive table-wrapper-scroll text-center overflow-auto" style="height:400px;">
             <table class="table table-striped table-hover table-bordered table-sm">
                 <th:block th:each="actor, iterStat:${actors}">
-                    <tr th:onclick="'javascript:addToCast(\'' + ${actor.actor_id} + '\');'">
+                    <tr th:onclick="'javascript:addToCast(\'' + ${actor.actorId} + '\');'">
                         <td th:text="${actor.actor_id}"></td>
                         <td th:text="${actor.actor_name}"></td>
                     </tr>
@@ -36,7 +36,7 @@
             <form action="#" class="form-group" method="POST" th:action="@{/movies/new/actor}" th:object="${actor}">
                 <span class="col-sm-1 mt-4">Add new actor to the list</span></br>
                 <input class="mt-2" id="new_actor" placeholder="Enter an actor name" style="height:40px; width:40vh;"
-                       th:field="*{actor_name}" type="text"/>
+                       th:field="*{actorName}" type="text"/>
                 <span><button class="btn btn-dark text-light" style="margin-bottom:5px;" type="submit"><i
                         class="fas fa-plus"></i></button></span>
             </form>
