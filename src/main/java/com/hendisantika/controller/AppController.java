@@ -3,6 +3,7 @@ package com.hendisantika.controller;
 import com.hendisantika.service.AppService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,4 +20,9 @@ import org.springframework.stereotype.Controller;
 public class AppController {
 
     private final AppService appService;
+
+    @GetMapping("")
+    public String redirectToMain() {
+        return "redirect:/movies/list";
+    }
 }
