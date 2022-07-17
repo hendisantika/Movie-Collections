@@ -1,10 +1,13 @@
 package com.hendisantika.service;
 
+import com.hendisantika.model.Movie;
 import com.hendisantika.repository.ActorRepository;
 import com.hendisantika.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,5 +26,10 @@ public class AppServiceImpl implements AppService {
 
     private MovieRepository movieRepository;
     private ActorRepository actorRepository;
+
+    @Override
+    public List<Movie> findMovies() {
+        return movieRepository.findAll();
+    }
 
 }
