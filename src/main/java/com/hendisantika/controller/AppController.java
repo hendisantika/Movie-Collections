@@ -108,4 +108,10 @@ public class AppController {
         mav.setViewName("castEdit");
         return mav;
     }
+
+    @PostMapping("/movies/new/actor")
+    public String actorCreation(@ModelAttribute Actor actor) {
+        appService.createActor(actor);
+        return "redirect:/movies/cast";
+    }
 }
