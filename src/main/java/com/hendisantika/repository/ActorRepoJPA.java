@@ -30,4 +30,9 @@ public interface ActorRepoJPA implements ActorRepository {
     Actor update(Actor actor) {
         return entityManager.merge(actor);
     }
+
+    @Override
+    void delete(Long actor_id) {
+        entityManager.remove(entityManager.getReference(Actor.class, actor_id));
+    }
 }
