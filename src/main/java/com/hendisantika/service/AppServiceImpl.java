@@ -65,4 +65,9 @@ public class AppServiceImpl implements AppService {
     public void update(Actor actor) {
         actorRepository.update(actor);
     }
+
+    @Override
+    public void deleteMovie(Long id) {
+        movieRepository.delete(id);
+    }
 }
