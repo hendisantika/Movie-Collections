@@ -25,4 +25,9 @@ public interface ActorRepoJPA implements ActorRepository {
     void create(Actor actor) {
         entityManager.persist(actor);
     }
+
+    @Override
+    Actor update(Actor actor) {
+        return entityManager.merge(actor);
+    }
 }
