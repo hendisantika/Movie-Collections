@@ -32,4 +32,8 @@ public class AppServiceImpl implements AppService {
         return movieRepository.findAll();
     }
 
+    @Override
+    public List<Movie> findMoviesByName(String name) {
+        return movieRepository.findByName(name);
+    }
 }
