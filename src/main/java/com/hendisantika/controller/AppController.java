@@ -1,9 +1,12 @@
 package com.hendisantika.controller;
 
+import com.hendisantika.model.Movie;
 import com.hendisantika.service.AppService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * Created by IntelliJ IDEA.
@@ -24,5 +27,12 @@ public class AppController {
     @GetMapping("")
     public String redirectToMain() {
         return "redirect:/movies/list";
+    }
+
+    @GetMapping(value = "/movies/update/{id}")
+    public String updateMovie(@PathVariable("id") Long id, Model model) {
+        Movie movie = appService.findMovie(id);
+        model.addAttribute("movie", movie);
+        return "edit";
     }
 }
