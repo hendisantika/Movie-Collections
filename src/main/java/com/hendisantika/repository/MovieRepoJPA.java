@@ -32,4 +32,12 @@ public class MovieRepoJPA implements MovieRepository {
     public Movie findById(Long id) {
         return entityManager.find(Movie.class, id);
     }
+
+    @Override
+    public List<Movie> findByName(String name) {
+        String queryString = "from Movie WHERE upper(name) LIKE :name";
+        return entityManager.createQuery(queryString, Movie.class)
+                .setParameter("name", "%" + name.toUpperCase() + "%")
+                .getResultList();
+    }
 }
