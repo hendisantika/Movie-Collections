@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : Movie-Collections
@@ -48,5 +51,17 @@ public class AppController {
         model.addAttribute("actors", appService.findActors());
         model.addAttribute("textForm", new TextForm());
         return "updateCast";
+    }
+
+    @PostMapping("/movies//edit/confirm/{id}")
+    public String confirmUpdate(@PathVariable("id") Long id, @ModelAttribute TextForm textForm) {
+        Movie movie = appService.findMovie(id);
+        List<Actor> actors = new ArrayList<>();
+        for (Long actor_id : textForm.StrToIds()) {
+            actors.add(appService.findActor(actor_id));
+        }
+        movie.getCast().addAll(actors);
+        appService.update(movie);
+        return "redirect:/movies/list";
     }
 }
