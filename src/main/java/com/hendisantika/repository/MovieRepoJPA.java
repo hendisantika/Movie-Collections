@@ -27,4 +27,9 @@ public class MovieRepoJPA implements MovieRepository {
     public List<Movie> findAll() {
         return entityManager.createQuery("from Movie", Movie.class).getResultList();
     }
+
+    @Override
+    public Movie findById(Long id) {
+        return entityManager.find(Movie.class, id);
+    }
 }
