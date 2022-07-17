@@ -55,4 +55,10 @@ public class MovieRepoJPA implements MovieRepository {
     public void delete(Long id) {
         entityManager.remove(entityManager.getReference(Movie.class, id));
     }
+
+    @Override
+    public List<Movie> findByCategory(String category) {
+        return entityManager.createQuery("from Movie WHERE upper(category) = :category", Movie.class)
+                .setParameter("category", category.toUpperCase()).getResultList();
+    }
 }
