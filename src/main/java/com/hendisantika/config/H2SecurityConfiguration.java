@@ -1,9 +1,11 @@
 package com.hendisantika.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,13 +18,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * To change this template use File | Settings | File Templates.
  */
 @Configuration
+@EnableWebSecurity
 @Order(value = 0)
-public class H2SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class H2SecurityConfiguration {
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/h2-console/**").authorizeRequests().anyRequest().permitAll();
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
+    @Bean
+    public SecurityFilterChain h2SecurityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .securityMatcher("/h2-console/**")
+                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+                .csrf(csrf -> csrf.disable())
+                .headers(headers -> headers.frameOptions().disable())
+                .build();
     }
 }

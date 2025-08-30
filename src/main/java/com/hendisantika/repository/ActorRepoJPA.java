@@ -3,10 +3,10 @@ package com.hendisantika.repository;
 import com.hendisantika.model.Actor;
 import com.hendisantika.model.Movie;
 import com.hendisantika.model.User;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
