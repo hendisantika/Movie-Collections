@@ -52,6 +52,14 @@ VALUES ('The Shawshank Redemption', '1995-03-10', 'Drama',
        ('The Lion King', '1995-01-20', 'Animation',
         'Lion prince Simba and his father are targeted by his bitter uncle, who wants to ascend the throne himself.',
         'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/5249F2C9A2F7F0E1DD33CAE34E26A2794C8F98FAA5DAA9E14E80624A9FCD25A1/scale?width=1200&aspectRatio=1.78&format=jpeg',
+        8.5),
+       ('Oppenheimer', '2023-07-21', 'Biography',
+        'The story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb during World War II.',
+        'https://m.media-amazon.com/images/M/MV5BMDBmYTZjNjUtN2M1MS00MTQ2LTk2ODgtNzc2M2QyZGE5NTVjXkEyXkFqcGdeQXVyNzAwMjU2MTY@._V1_.jpg',
+        8.3),
+       ('Dune: Part Two', '2024-03-01', 'Sci-fi',
+        'Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the universe.',
+        'https://m.media-amazon.com/images/M/MV5BN2QyZGU4ZDctOWMzMy00NTc5LThlOGQtODhmNDI1NmY5YzAwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg',
         8.5);
 
 
@@ -105,7 +113,17 @@ VALUES ('Morgan Freeman'),
        ('Matthew Broderick'),
        ('Niketa Calame-Harris'),
        ('Jim Cummings'),
-       ('Whoopi Goldberg');
+       ('Whoopi Goldberg'),
+       ('Cillian Murphy'),
+       ('Emily Blunt'),
+       ('Matt Damon'),
+       ('Robert Downey Jr.'),
+       ('Florence Pugh'),
+       ('Timothée Chalamet'),
+       ('Zendaya'),
+       ('Austin Butler'),
+       ('Rebecca Ferguson'),
+       ('Javier Bardem');
 
 
 
@@ -159,4 +177,14 @@ VALUES (1, 1),
        (10, 47),
        (10, 48),
        (10, 49),
-       (10, 50);
+       (10, 50),
+       (11, 51),
+       (11, 52),
+       (11, 53),
+       (11, 54),
+       (11, 55),
+       (12, 56),
+       (12, 57),
+       (12, 58),
+       (12, 59),
+       (12, 60);
