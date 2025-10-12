@@ -1,11 +1,22 @@
 INSERT INTO users(username, password, enabled)
 VALUES ('admin', '{noop}admin', true),
-       ('user', '{noop}user', true);
+       ('user', '{noop}user', true),
+       ('john', '{noop}john123', true),
+       ('jane', '{noop}jane123', true),
+       ('bob', '{noop}bob123', true),
+       ('alice', '{noop}alice123', true),
+       ('charlie', '{noop}charlie123', true);
 
 INSERT INTO authorities(username, authority)
 VALUES ('admin', 'ROLE_USER'),
        ('admin', 'ROLE_ADMIN'),
-       ('user', 'ROLE_USER');
+       ('user', 'ROLE_USER'),
+       ('john', 'ROLE_USER'),
+       ('jane', 'ROLE_USER'),
+       ('bob', 'ROLE_USER'),
+       ('alice', 'ROLE_ADMIN'),
+       ('alice', 'ROLE_USER'),
+       ('charlie', 'ROLE_USER');
 
 INSERT INTO t_movies(name, release_date, category, description, image, rating)
 VALUES ('The Shawshank Redemption', '1995-03-10', 'Drama',
