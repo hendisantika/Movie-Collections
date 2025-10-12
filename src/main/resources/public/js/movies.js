@@ -11,14 +11,17 @@ orderType.value = window.location.href.substring(window.location.href.lastIndexO
 searchButton.addEventListener("click", function () {
 	if (searchInput.value.length > 0) {
 		var type = searchType.value;
-		window.location.href = "/movies/list/?" + type + "=" + searchInput.value;
+        window.location.href = "/movies/list?" + type + "=" + searchInput.value;
 	}
 });
 
 orderType.addEventListener("change", event => {
 	if (window.location.href.includes("orderBy")) {
+        // Remove existing orderBy parameter
 		var url = window.location.href.substring(0, window.location.href.lastIndexOf("orderBy") - 1);
-		window.location.href = url + "&orderBy=" + event.target.value;
+        // Check if we still have other query parameters
+        var separator = url.includes("?") ? "&" : "?";
+        window.location.href = url + separator + "orderBy=" + event.target.value;
 	} else if (window.location.href.includes("?")) {
 		window.location.href += "&orderBy=" + event.target.value;
 	} else {
