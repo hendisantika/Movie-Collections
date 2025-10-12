@@ -1,33 +1,102 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/movies.css}" type="text/css"/>
-    <meta charset="UTF-8">
-    <title>Updating the movie</title>
+    <script crossorigin="anonymous" src="https://kit.fontawesome.com/dd36616560.js"></script>
+    <title>Update Movie</title>
 </head>
 <body>
 <div class="container">
-    <h1 class="text-center text-light bg-dark mb-3 pt-3 pb-3 font-weight-bold"
-        style="border-radius: 0px 0px 30px 30px;">MOVIE COLLECTION</h1>
-    <div class="text-center container w-50 bg-light p-4">
-        <h2 class="text-center">UPDATING THE MOVIE</h2>
-        <span class="h3" th:text="${movie.name}"></span>
+    <!-- Header -->
+    <div class="app-header">
+        <h1 class="app-title">🎬 MOVIE COLLECTION</h1>
+    </div>
 
-        <div class="form-group text-center container">
-            <form action="#" method="POST" th:action="@{/movies/edit/cast/{movie.id}(movie.id = ${movie.id})}"
-                  th:object="${movie}">
-                Id: <input class="form-control" name="id" readonly th:field="*{id}" type="text"/></br>
-                Name: <input class="form-control" name="name" th:field="*{name}" type="text"/></br>
-                Release Date: <input class="form-control" name="date" th:field="*{date}" type="date"/></br>
-                Category: <input class="form-control" name="category" th:field="*{category}" type="text"/></br>
-                Description: <input class="form-control" name="description" th:field="*{description}" type="text"/></br>
-                Image URL: <input class="form-control" name="image" th:field="*{image}" type="text"/><br>
-                Rating: <input class="form-control" name="rating" th:field="*{rating}" type="text"/></br>
-                <button class="btn btn-dark" name="submit" type="submit" value="0">Confirm And Go To Editing Cast
-                </button>
-            </form>
+    <!-- Back Button -->
+    <div class="mb-4">
+        <button class="btn-search" onclick="window.location.href='/movies/list'" style="padding: 0.5rem 1.5rem;">
+            <i class="fas fa-arrow-left"></i> Back to Collection
+        </button>
+    </div>
+
+    <!-- Edit Form Container -->
+    <div class="movie-info-container">
+        <div class="text-center mb-4">
+            <h2 class="movie-info-title">
+                <i class="fas fa-edit"></i> UPDATE MOVIE
+            </h2>
+            <h3 style="color: #667eea; font-weight: 600; margin-top: 1rem;" th:text="${movie.name}">Movie Name</h3>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form action="#" method="POST" th:action="@{/movies/edit/cast/{movie.id}(movie.id = ${movie.id})}"
+                      th:object="${movie}">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-hashtag"></i> Movie ID
+                        </label>
+                        <input class="form-input" name="id" readonly th:field="*{id}" type="text"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-film"></i> Name
+                        </label>
+                        <input class="form-input" name="name" placeholder="Enter movie name" required
+                               th:field="*{name}" type="text"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="far fa-calendar-alt"></i> Release Date
+                        </label>
+                        <input class="form-input" name="date" required th:field="*{date}" type="date"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-tags"></i> Category
+                        </label>
+                        <input class="form-input" name="category" placeholder="e.g., Action, Drama, Comedy"
+                               required th:field="*{category}" type="text"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-align-left"></i> Description
+                        </label>
+                        <textarea class="form-input" name="description" placeholder="Enter movie description" required
+                                  rows="4" style="resize: vertical;" th:field="*{description}"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-image"></i> Image URL
+                        </label>
+                        <input class="form-input" name="image" placeholder="https://example.com/image.jpg"
+                               th:field="*{image}" type="text"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-star"></i> Rating
+                        </label>
+                        <input class="form-input" max="10" min="0" name="rating" placeholder="0.0 - 10.0" required
+                               step="0.1" th:field="*{rating}" type="number"/>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button class="btn-add-movie" name="submit" type="submit" value="0">
+                            <i class="fas fa-arrow-right"></i> Confirm And Edit Cast
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

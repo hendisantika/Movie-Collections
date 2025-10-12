@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/movies.css}" type="text/css"/>
@@ -9,48 +10,106 @@
     <title>Edit Cast</title>
 </head>
 <body>
-<div class="container text-center">
-    <h1 class="text-center text-light bg-dark mb-3 pt-3 pb-3 font-weight-bold"
-        style="border-radius: 0px 0px 30px 30px;">MOVIE COLLECTION</h1>
-    <div class="bg-light p-3 container w-50">
-        <h2>CHOOSE/ADD ACTORS</h2>
-        <p>
-            Click on the actors listed below to add them to the movie's cast.<br>
-            If the actor isn't on the list, you can write their name and add them to the list.<br>
-            You can use Ctrl+F or Command+F to find the actor you're looking for.
-        </p>
+<div class="container">
+    <!-- Header -->
+    <div class="app-header">
+        <h1 class="app-title">🎬 MOVIE COLLECTION</h1>
+    </div>
 
-        <h6 class="bg-dark text-light p-3" style="margin-right: 15px;">All Actors</h6>
-        <div class="table-responsive table-wrapper-scroll text-center overflow-auto" style="height:400px;">
-            <table class="table table-striped table-hover table-bordered table-sm">
-                <th:block th:each="actor, iterStat:${actors}">
-                    <tr th:onclick="'javascript:addToCast(\'' + ${actor.actorId} + '\');'">
-                        <td th:text="${actor.actorId}"></td>
-                        <td th:text="${actor.actorName}"></td>
-                    </tr>
-                </th:block>
-            </table>
+    <!-- Back Button -->
+    <div class="mb-4">
+        <button class="btn-search" onclick="window.location.href='/movies/list'" style="padding: 0.5rem 1.5rem;">
+            <i class="fas fa-arrow-left"></i> Back to Collection
+        </button>
+    </div>
+
+    <!-- Cast Edit Container -->
+    <div class="movie-info-container">
+        <div class="text-center mb-4">
+            <h2 class="movie-info-title">
+                <i class="fas fa-users"></i> CHOOSE/ADD ACTORS
+            </h2>
+            <p style="color: #666; margin-top: 1rem; line-height: 1.6;">
+                Click on the actors listed below to add them to the movie's cast.<br>
+                If the actor isn't on the list, you can write their name and add them.<br>
+                Use <strong>Ctrl+F</strong> or <strong>Command+F</strong> to search for actors.
+            </p>
         </div>
 
-        <div class="mt-2">
-            <form action="#" class="form-group" method="POST" th:action="@{/movies/new/actor}" th:object="${actor}">
-                <span class="col-sm-1 mt-4">Add new actor to the list</span></br>
-                <input class="mt-2" id="new_actor" placeholder="Enter an actor name" style="height:40px; width:40vh;"
-                       th:field="*{actorName}" type="text"/>
-                <span><button class="btn btn-dark text-light" style="margin-bottom:5px;" type="submit"><i
-                        class="fas fa-plus"></i></button></span>
-            </form>
+        <!-- All Actors Section -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-10">
+                <h4 style="font-weight: 700; color: #667eea; margin-bottom: 1rem; text-align: center;">
+                    <i class="fas fa-list"></i> All Actors
+                </h4>
+                <div style="max-height: 400px; overflow-y: auto; border-radius: 15px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);">
+                    <table class="cast-table table table-striped table-hover">
+                        <thead>
+                        <tr class="text-white">
+                            <th style="padding: 1rem; font-size: 1rem; width: 20%;">
+                                <i class="fas fa-hashtag"></i> ID
+                            </th>
+                            <th style="padding: 1rem; font-size: 1rem;">
+                                <i class="fas fa-user"></i> Actor Name
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="actor, iterStat:${actors}">
+                            <tr style="cursor: pointer; transition: background-color 0.3s ease;"
+                                th:onclick="'javascript:addToCast(\'' + ${actor.actorId} + '\');'">
+                                <td style="padding: 1rem; font-weight: 600;" th:text="${actor.actorId}"></td>
+                                <td style="padding: 1rem;" th:text="${actor.actorName}"></td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
-        <div class="container mt-4">
-            <h6>MOVIE CAST</h6>
-            <form action="#" class="form-group" method="POST" th:action="@{/movies/new}" th:object="${textForm}">
-                <input class="form-control input-sm" id="cast_input" readonly th:field="*{text}" type="text"/>
-                <button class="btn btn-dark text-light mt-3" type="submit"><i class="fas fa-check"></i> CONFIRM CAST
-                </button>
-            </form>
+        <!-- Add New Actor Section -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-8">
+                <div style="background: rgba(102, 126, 234, 0.05); padding: 2rem; border-radius: 15px; border: 2px dashed #667eea;">
+                    <h5 style="color: #667eea; font-weight: 600; margin-bottom: 1rem; text-align: center;">
+                        <i class="fas fa-user-plus"></i> Add New Actor to the List
+                    </h5>
+                    <form action="#" class="form-group" method="POST" th:action="@{/movies/new/actor}"
+                          th:object="${actor}">
+                        <div class="input-group">
+                            <input class="form-input" id="new_actor" placeholder="Enter actor name"
+                                   required
+                                   style="border-radius: 15px 0 0 15px; border-right: none;" th:field="*{actorName}" type="text"/>
+                            <button class="btn-search" style="border-radius: 0 15px 15px 0; padding: 0.75rem 2rem;"
+                                    type="submit">
+                                <i class="fas fa-plus"></i> Add
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
+        <!-- Movie Cast Section -->
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h4 style="font-weight: 700; color: #667eea; margin-bottom: 1rem; text-align: center;">
+                    <i class="fas fa-star"></i> Movie Cast
+                </h4>
+                <form action="#" class="form-group" method="POST" th:action="@{/movies/new}" th:object="${textForm}">
+                    <div class="form-group">
+                        <input class="form-input" id="cast_input" placeholder="Selected cast will appear here"
+                               readonly th:field="*{text}" type="text"/>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button class="btn-add-movie" type="submit">
+                            <i class="fas fa-check"></i> Confirm Cast
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 

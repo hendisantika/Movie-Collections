@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/movies.css}" type="text/css"/>
@@ -9,33 +10,94 @@
     <title>Movie Info</title>
 </head>
 <body>
-<div class="container text-center">
-    <h1 class="text-center text-light bg-dark mb-3 pt-3 pb-3 font-weight-bold"
-        style="border-radius: 0px 0px 30px 30px;">MOVIE COLLECTION</h1>
-    <div class="bg-light p-3" id="movie_info">
-        <h2 th:text="${movie.name}"></h2>
-        <div style="height:400px; overflow:hidden;">
-            <image class="img-thumbnail" style="width:600px;" th:alt="${movie.name}" th:src="${movie.image}"/>
-        </div>
+<div class="container">
+    <!-- Header -->
+    <div class="app-header">
+        <h1 class="app-title">🎬 MOVIE COLLECTION</h1>
+    </div>
 
-        <h4 style="margin-top:20px;">Description</h4>
-        <p th:text="${movie.description}"/>
+    <!-- Back Button -->
+    <div class="mb-4">
+        <button class="btn-search" onclick="window.location.href='/movies/list'" style="padding: 0.5rem 1.5rem;">
+            <i class="fas fa-arrow-left"></i> Back to Collection
+        </button>
+    </div>
 
-        <div class="text-center container w-50" id="cast_info">
-            <h4>Cast</h4>
-            <table class="table table-striped table-hover table-bordered">
-                <thead>
-                <tr class="bg-dark text-light">
-                    <td>Actor Name</td>
-                </tr>
-                </thead>
-                <th:block th:each="actor, iterStat:${cast}">
-                    <tr>
-                        <td th:text="${actor.actor_name}"></td>
-                    </tr>
-                </th:block>
-            </table>
+    <!-- Movie Info Container -->
+    <div class="movie-info-container">
+        <div class="text-center">
+            <h2 class="movie-info-title" th:text="${movie.name}">Movie Title</h2>
+
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-8">
+                    <img class="movie-info-poster img-fluid" onerror="this.src='https://via.placeholder.com/600x800/667eea/ffffff?text=No+Image'" th:alt="${movie.name}"
+                         th:src="${movie.image}"/>
+                </div>
+            </div>
+
+            <!-- Movie Meta Info -->
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-8">
+                    <div class="d-flex justify-content-center align-items-center gap-4 flex-wrap mb-4">
+                            <span class="movie-category" style="font-size: 1.1rem; padding: 0.5rem 1.5rem;">
+                                <i class="fas fa-film"></i> <span th:text="${movie.category}">Category</span>
+                            </span>
+                        <span class="movie-rating" style="font-size: 1.5rem;">
+                                <i class="fas fa-star"></i>
+                                <span th:text="${movie.rating}">9.0</span>
+                            </span>
+                        <span class="movie-date" style="font-size: 1.1rem;">
+                                <i class="far fa-calendar-alt"></i>
+                                <span th:text="${#dates.format(movie.date, 'MMMM dd, yyyy')}">Release Date</span>
+                            </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description Section -->
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-8">
+                    <h4 style="font-weight: 700; color: #667eea; margin-bottom: 1rem;">
+                        <i class="fas fa-info-circle"></i> Description
+                    </h4>
+                    <p style="color: #666; line-height: 1.8; font-size: 1.1rem;" th:text="${movie.description}">
+                        Movie description goes here...
+                    </p>
+                </div>
+            </div>
+
+            <!-- Cast Section -->
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <h4 style="font-weight: 700; color: #667eea; margin-bottom: 1.5rem;">
+                        <i class="fas fa-users"></i> Cast
+                    </h4>
+                    <table class="cast-table table table-striped table-hover">
+                        <thead>
+                        <tr class="text-white">
+                            <th style="padding: 1rem; font-size: 1.1rem;">
+                                <i class="fas fa-user"></i> Actor Name
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="actor, iterStat:${cast}">
+                            <tr>
+                                <td style="padding: 1rem; font-size: 1rem;" th:text="${actor.actorName}">Actor Name</td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <!-- Bottom Actions -->
+    <div class="text-center mt-4 mb-5">
+        <button class="btn-search" onclick="window.location.href='/movies/list'" style="padding: 1rem 3rem;">
+            <i class="fas fa-arrow-left"></i> Return to Collection
+        </button>
     </div>
 </div>
 

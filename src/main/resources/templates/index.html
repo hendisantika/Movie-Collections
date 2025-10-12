@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/movies.css}" type="text/css"/>
@@ -10,68 +11,102 @@
 </head>
 <body>
 <div class="container">
-
-    <h1 class="text-center text-light bg-dark mb-3 pt-3 pb-3 font-weight-bold"
-        style="border-radius: 0px 0px 30px 30px;">MOVIE COLLECTION</h1>
-
-    <form method="post" th:action="@{/logout}">
-        <input class="btn btn-dark" type="submit" value="Logout"/>
-    </form>
-
-    <div class="row justify-content-center">
-        <select class="col-sm-2" id="search_type" name="Search type" style="margin-right: 5px;">
-            <option value="name">Search by name</option>
-            <option value="category">Search by category</option>
-            <option value="actor">Search by actors</option>
-        </select>
-        <input class="col-sm-4" id="search_input" style="margin-right: 10px;" type="text"/>
-        <button class="btn btn-dark col-sm-1" id="search_btn" style="margin-right: 10px;" type="button"><i
-                class="fas fa-search"></i> Search
-        </button>
-        <button class="btn btn-sm btn-outline-danger col-sm-1" id="search_clear_btn" type="button">Clear Search</button>
+    <!-- Header -->
+    <div class="app-header">
+        <h1 class="app-title">🎬 MOVIE COLLECTION</h1>
     </div>
-    <span>Order by: </span>
-    <select id="order_type" name="Order by">
-        <option value="rating">Rating</option>
-        <option value="name">Name</option>
-        <option value="date">Release Date</option>
-    </select>
 
-    <div class="table-responsive mt-3 bg-light container-fluid">
-        <table class="table table-hover table-striped table-bordered">
-            <thead class="text-light">
-            <tr class="row text-center bg-dark">
-                <td class="col-sm-2">Name</td>
-                <td class="col-sm-1">Release Date</td>
-                <td class="col-sm-1">Category</td>
-                <td class="col-sm-6">Description</td>
-                <td class="col-sm-1">Rating</td>
-                <td class="col-sm-1">Manage</td>
-            </tr>
-            </thead>
+    <!-- Navbar with Logout -->
+    <div class="navbar-custom d-flex justify-content-between align-items-center">
+        <div>
+            <span style="font-weight: 600; color: #666;">Welcome to your collection</span>
+        </div>
+        <form method="post" th:action="@{/logout}">
+            <button class="btn-logout" type="submit">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </form>
+    </div>
+
+    <!-- Search Container -->
+    <div class="search-container">
+        <div class="row g-3 align-items-center">
+            <div class="col-md-3">
+                <select class="search-select form-select" id="search_type" name="Search type">
+                    <option value="name">🔍 Search by name</option>
+                    <option value="category">🎭 Search by category</option>
+                    <option value="actor">⭐ Search by actors</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input class="search-input form-control" id="search_input" placeholder="Type to search..." type="text"/>
+            </div>
+            <div class="col-md-2">
+                <button class="btn-search w-100" id="search_btn" type="button">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn-clear w-100" id="search_clear_btn" type="button">
+                    <i class="fas fa-times"></i> Clear
+                </button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <label style="font-weight: 600; color: #666; margin-right: 10px;">Sort by:</label>
+                <select class="search-select" id="order_type" name="Order by"
+                        style="width: auto; display: inline-block;">
+                    <option value="rating">⭐ Rating</option>
+                    <option value="name">📝 Name</option>
+                    <option value="date">📅 Release Date</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Movies Grid -->
+    <div class="movies-grid">
             <th:block th:each="movie, iterStat:${movies}">
-                <tr class="row" style="height:60px; font-size:15px;">
-                    <td class="col-sm-2 text-center" onmouseout="this.style.color='black';"
-                        onmouseover="this.style.color='red'; this.style.cursor='pointer';" style="font-weight: bold;"
-                        th:onclick="|window.location.href='/movies/${movie.id}';|" th:text="${movie.name}"/>
-                    <td class="col-sm-1 text-center" th:text="${movie.date}"/>
-                    <td class="col-sm-1 text-center" th:text="${movie.category}"/>
-                    <td class="col-sm-6" style="font-size: 14px" th:text="${movie.description}"/>
-                    <td class="col-sm-1 text-center" th:text="${movie.rating}"/>
-                    <td class="col-sm-1 text-center">
-                        <button class="btn btn-sm btn-dark w-20" id="edit_btn"
-                                th:onclick="|window.location.href='update/${movie.id}';|"><i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" id="delete_btn"
-                                th:onclick="'javascript:deleteClicked(\'' + ${movie.id} + '\');'"><i
-                                class="fas fa-trash-alt"></i></button>
-                    </td>
-                </tr>
+                <div class="movie-card">
+                    <div onclick="window.location.href='/movies/' + [[${movie.id}]];" style="cursor: pointer;">
+                        <img class="movie-poster" onerror="this.src='https://via.placeholder.com/320x400/667eea/ffffff?text=No+Image'" th:alt="${movie.name}"
+                             th:src="${movie.image}"/>
+                    </div>
+                    <div class="movie-content">
+                        <h3 class="movie-title" th:text="${movie.name}">Movie Title</h3>
+                        <div class="movie-meta">
+                            <span class="movie-category" th:text="${movie.category}">Category</span>
+                            <span class="movie-rating">
+                                <i class="fas fa-star"></i>
+                                <span th:text="${movie.rating}">9.0</span>
+                            </span>
+                        </div>
+                        <div class="movie-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span th:text="${#dates.format(movie.date, 'MMM dd, yyyy')}">Release Date</span>
+                        </div>
+                        <p class="movie-description" th:text="${movie.description}">
+                            Movie description goes here...
+                        </p>
+                        <div class="movie-actions">
+                            <button class="btn-edit" th:onclick="|window.location.href='/movies/update/${movie.id}';|">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn-delete"
+                                    th:onclick="'javascript:deleteClicked(\'' + ${movie.id} + '\');'">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </th:block>
-        </table>
     </div>
-    <div class="container justify-content-center text-center mt-3">
-        <button class="btn btn-md btn-dark" onclick="window.location.href='/movies/cast'" type="button">+ Add A Movie
+
+    <!-- Add Movie Button -->
+    <div class="text-center mt-5 mb-5">
+        <button class="btn-add-movie" onclick="window.location.href='/movies/cast'" type="button">
+            <i class="fas fa-plus-circle"></i> Add New Movie
         </button>
     </div>
 </div>
