@@ -1,6 +1,6 @@
 package com.hendisantika.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,7 +29,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "t_actors")
-@JsonIgnoreProperties(value = {"playedIn"})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -43,6 +42,8 @@ public class Actor {
     @Column(name = "actor_name")
     private String actorName;
 
+    @JsonIgnore
+    @Builder.Default
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "cast")
     private Set<Movie> playedIn = new HashSet<>();
 
