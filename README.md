@@ -18,6 +18,24 @@ actors, and cast information with role-based access control.
 - [Contributing](#contributing)
 - [License](#license)
 
+## Image Screenshot
+
+Register Page
+
+![Register Page](img/register.png "Register Page")
+
+Login Page
+
+![Login Page](img/login.png "Login Page")
+
+List Actors
+
+![List Actors](img/actors.png "List Actors")
+
+Edit Actor
+
+![Edit Actor](img/edit.png "Edit Actor")
+
 ## ✨ Features
 
 ### Core Features
